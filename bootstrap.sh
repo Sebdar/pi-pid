@@ -5,6 +5,8 @@ mkdir build
 cd build
 
 cmake . \
+    -DUNIT_TEST=ON \
+    -DBUILD_TOOLS=ON \
     ..
 
 
