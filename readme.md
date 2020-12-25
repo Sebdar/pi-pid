@@ -13,7 +13,9 @@ working ;) ).
 This project requires :
 
 - A Raspberry Pi (duh)
-- A C++17 compiler
+- WiringPi library (installed by default)
+- Qt 5
+- A system you have to control (duh²)
  
 
 To instal the project, run the `bootstrap.sh` script from the cloned repo, then cd into build
