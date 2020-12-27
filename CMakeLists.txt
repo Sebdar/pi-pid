@@ -20,17 +20,30 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 include_directories(include)
 
-set(pipid_src src/controller.cpp)
+set(pipid_src
+    src/controller.cpp
+    src/gui.cpp
+# AUTOMOC does not process headers automatically, add them manually
+    include/gui.h
+)
 
 add_library(pipid STATIC ${pipid_src})
-target_link_libraries(pipid Qt5::Core Qt5::Widgets)
+target_link_libraries(pipid Qt5::Core Qt5::Widgets wiringPi)
 
 ###########################################################
 
 if(UNIT_TEST)
-
+    # Gui test
+    add_executable(gui_test test/gui_test.cpp)
+    target_link_libraries(gui_test pipid)
+    
+    # Incremental encoder class test
+    add_executable(incremental_encoder 
+                   test/incremental_encoder.cpp
+                   src/encoder_counter.cpp)
+    target_compile_definitions(incremental_encoder PUBLIC PRINT_ENCODER)
+    target_link_libraries(incremental_encoder wiringPi)
 endif()
 
 if(BUILD_TOOLS)
-
 endif()

@@ -18,8 +18,8 @@
 class Sampler {
 public:
     // Constructor and destructor
-    Sampler();
-    virtual ~Sampler() = 0;
+    Sampler() {}
+    virtual ~Sampler() {}
 
 
     // Sampler functions
