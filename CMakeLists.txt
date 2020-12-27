@@ -23,6 +23,8 @@ include_directories(include)
 set(pipid_src
     src/controller.cpp
     src/gui.cpp
+    src/encoder_counter.cpp
+    src/motor_driver.cpp
 # AUTOMOC does not process headers automatically, add them manually
     include/gui.h
 )
@@ -43,6 +45,12 @@ if(UNIT_TEST)
                    src/encoder_counter.cpp)
     target_compile_definitions(incremental_encoder PUBLIC PRINT_ENCODER)
     target_link_libraries(incremental_encoder wiringPi)
+
+    # PWM unit test (motor driver)
+    add_executable(pwm_driver 
+                   test/pwm_driver.cpp
+                   src/motor_driver.cpp)
+    target_link_libraries(pwm_driver wiringPi)
 endif()
 
 if(BUILD_TOOLS)

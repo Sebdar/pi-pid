@@ -6,9 +6,9 @@ import time
 import numpy as np
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(12, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
 
-p = GPIO.PWM(12, 50)
+p = GPIO.PWM(18, 50)
 
 p.start(0.05)
 while True:
