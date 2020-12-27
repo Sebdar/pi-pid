@@ -6,7 +6,6 @@
 
 // Std includes
 
-#include <iostream>
 #include <cmath>
 
 // Local includes
@@ -18,7 +17,6 @@
 // -------------------------- Static Functions ----------------------------- //
 
 int MotorDriver::wrapCycleToPWM(double cycleDuty) {
-    std::cout << std::floor(1024 * cycleDuty) << '\n';
     return std::floor(1024 * cycleDuty);
 }
 
@@ -37,7 +35,6 @@ int MotorDriver::init() {
     pwmSetMode(PWM_MODE_MS);
     pwmSetRange(1024);
     pwmSetClock(375); // 50 Hz; base clock is 19,2 MHz
-    
     
     return 0;
 }
