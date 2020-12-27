@@ -21,7 +21,8 @@
 // Global variables
 // Ugh.. I hate this but the wiringPi library only allows C-style functions
 // pointers that WON'T TAKE ANY ARGUMENT ... we are forced to use these ugly
-// global variables
+// global variables. There is no support at the moment for two incremental
+// encoder objects
 static EncoderCounter* ptr = nullptr;
 
 void callbackA() {
@@ -31,6 +32,8 @@ void callbackA() {
 void callbackB() {
     ptr->threadCallback(ptr->getPinB());
 }
+
+// --------------------------  EncoderCounter  ----------------------------- //
 
 EncoderCounter::EncoderCounter(const int _a, const int _b)
     : pinA(_a), pinB(_b) {
