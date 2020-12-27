@@ -14,8 +14,8 @@
 class ControllerInterface {
 public:
     // Constructor and destructor
-    ControllerInterface();
-    virtual ~ControllerInterface();
+    ControllerInterface() {};
+    virtual ~ControllerInterface() {};
     
     // Controller actions
 
@@ -40,8 +40,18 @@ public:
      * \brief Stop the samplers
      */
     virtual int stopAcq() = 0;
-    
 
+    /** \fn startControlLoop
+     * \brief Start controlling the output based on the current input values
+     * The "heart" of the controller. This should return directly, while the
+     * control loop is executed in a separate thread.
+     */
+    virtual int startControlLoop() = 0;
+
+    /** \fn stopControlLoop
+     * \brief Stops the PID Controller. Actuators will be stopped
+     */
+    virtual int stopControlLoop() = 0;
 };
 
 #endif

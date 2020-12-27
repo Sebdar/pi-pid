@@ -50,7 +50,7 @@ public:
      * This function is meant to be used as a trim setting (ie. set it up 
      * where you want it to be)
      */
-    void resetCounter();
+    void resetCounter() {counterValue = 0;}
 
 private:
     /** \fn updateState

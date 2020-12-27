@@ -20,7 +20,7 @@ int main() {
     pwm.init();
     
     while(1){
-        for(double i = 0.05; i < 0.1; i+= 0.001) {
+        for(double i = -1; i < 1; i+= 0.05) {
             std::cout << i << '\n';
             pwm.setOutput(i);
             std::this_thread::sleep_for(200ms);

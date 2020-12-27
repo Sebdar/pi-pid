@@ -21,7 +21,7 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 include_directories(include)
 
 set(pipid_src
-    src/controller.cpp
+    src/pid_controller.cpp
     src/gui.cpp
     src/encoder_counter.cpp
     src/motor_driver.cpp
@@ -51,6 +51,14 @@ if(UNIT_TEST)
                    test/pwm_driver.cpp
                    src/motor_driver.cpp)
     target_link_libraries(pwm_driver wiringPi)
+
+    # Basic PID test w/ encoder & motor driver 
+    add_executable(simple_pid
+                   test/simple_pid.cpp
+                   src/motor_driver.cpp
+                   src/encoder_counter.cpp
+                   src/pid_controller)
+    target_link_libraries(simple_pid -lpthread wiringPi)
 endif()
 
 if(BUILD_TOOLS)

@@ -17,11 +17,14 @@
 // -------------------------- Static Functions ----------------------------- //
 
 int MotorDriver::wrapCycleToPWM(double cycleDuty) {
-    return std::floor(1024 * cycleDuty);
+    if(cycleDuty > 1) cycleDuty = 1;
+    if(cycleDuty < -1) cycleDuty = -1;
+
+    return std::floor(25.6 * cycleDuty + 76.8);
 }
 
 double MotorDriver::wrapPWMToDouble(int pwm) {
-    return std::abs((double) pwm / 1024);
+    return (pwm - 76.8) / 25.6;
 }
 
 // --------------------------    MotorDriver   ----------------------------- //
