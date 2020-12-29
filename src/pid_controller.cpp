@@ -21,10 +21,13 @@ int PidController::init() {
         throw std::runtime_error("Sampler is not defined");
     } else if(actuator == nullptr) {
         throw std::runtime_error("Actuator is not defined");
+    } else if(reference == nullptr) {
+        throw std::runtime_error("Reference is not defined");
     }
 
     sampler->init();
     actuator->init();
+    reference->init();
     return 0;
 }
 
