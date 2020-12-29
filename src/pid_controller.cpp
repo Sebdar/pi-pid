@@ -51,7 +51,7 @@ int PidController::startControlLoop() {
 
 void PidController::controlLoop() {
     // Here comes the fun : the actual control loop of the PID
-    double sample, last_y, y, out;
+    double last_y;
     double integrator = 0;
 
     double d = 0, last_d = 0; // Decay for derivative low-pass
@@ -61,6 +61,7 @@ void PidController::controlLoop() {
     while(cont) {
         // Refresh sample
         sample = sampler->getSample();
+        setPoint = reference->getSample();
         y = setPoint - sample; // Difference between set point and value
 
         // Integrator update

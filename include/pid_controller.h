@@ -49,6 +49,11 @@ public:
      */
     void setInput(Sampler* newSampler) noexcept {sampler = newSampler;}
 
+    /** \fn setReference
+     * \brief Register the reference value (set-point)
+     */
+    void setReference(Sampler* newReference) noexcept {reference = newReference;}
+
     /** \fn setActuator
      * \brief The controller will switch output to the given output
      */
@@ -57,11 +62,6 @@ public:
     /** \fn setSamplingPeriod
      */
     void setSamplingPeriod(std::chrono::microseconds us) noexcept {delay = us;}
-
-    /** \fn setSetPoint
-     * \brief Register the target value
-     */
-    void setSetPoint(double value) noexcept {setPoint = value;}
 
     /** \fn controlLoop
      * \brief Main control loop. Should not be called by the user!
@@ -93,8 +93,8 @@ public:
 private:
     PidSettings settings;
     Sampler* sampler = nullptr;
+    Sampler* reference = nullptr;
     Output* actuator = nullptr;
-    double setPoint;
 
     // -- Thread handling --  //
 
@@ -114,6 +114,10 @@ private:
      */
     double integratorLower = std::numeric_limits<double>::min();
     double integratorUpper = std::numeric_limits<double>::max();
+
+    // ---- PID Values ---- //
+    // For plotting & logging utilities
+    double sample, setPoint, y, out;
 };
 
 #endif

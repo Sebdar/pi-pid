@@ -11,6 +11,7 @@
 // Local includes
 
 #include "motor_driver.h"
+#include "constant_value.h"
 #include "encoder_counter.h"
 #include "pid_controller.h"
 
@@ -21,6 +22,7 @@ int main() {
     // Input & output
     EncoderCounter input(17, 27);
     MotorDriver pwm(18);
+    ConstantValue setPoint(0);
 
     // Main controller
     PidController pid(5e-2, 4e-1, 4e-2);
@@ -28,6 +30,8 @@ int main() {
     // Setting up the controller
     pid.setInput(&input);
     pid.setActuator(&pwm);
+    pid.setReference(&setPoint);
+
     pid.setDerivativeDecay(0.3);
     pid.setIntegratorBounds(-0.3, 4.);
     
@@ -54,7 +58,7 @@ int main() {
         std::cin >> dummy;
         try {
             val = std::stoi(dummy);
-            pid.setSetPoint(val);
+            setPoint.setValue(val);
             std::cout << "New set point : " << val << "\n";
         } catch(...) {
             cont = false;
