@@ -56,7 +56,7 @@ public:
 
     /** \fn setSamplingPeriod
      */
-    void setSamplingPeriod(std::chrono::nanoseconds ns) {delay = ns;}
+    void setSamplingPeriod(std::chrono::microseconds us) {delay = us;}
 
     /** \fn setSetPoint
      * \brief Register the target value
@@ -76,7 +76,7 @@ private:
 
     std::thread* loopThread;
     std::atomic<bool> cont;
-    std::chrono::nanoseconds delay = std::chrono::nanoseconds(1000);
+    std::chrono::microseconds delay = std::chrono::microseconds(10000);
 };
 
 #endif

@@ -20,7 +20,7 @@ public:
     // Overridden methods
     int init() override;
     int setOutput(const double cycleDuty) override;
-    double getCurrentOutput() override {return wrapPWMToDouble(command);}
+    double getCurrentOutput() override;
     int close() override {return 0;}
 
 
