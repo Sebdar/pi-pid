@@ -74,7 +74,7 @@ void PidController::controlLoop() {
         out += cum_d * settings.d;
         
         /// Integral action
-        if((integrator < 4. && integrator > -1.) || integrator * y <= 0) {
+        if((integrator < 4. && integrator > -0.3) || integrator * y <= 0) {
             // Add to the integrator if it hasn't exceeded a certain value or 
             // it could diminish (if integrator and sample don't have the same
             // sign)

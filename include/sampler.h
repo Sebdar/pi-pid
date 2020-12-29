@@ -8,7 +8,7 @@
 #define SAMPLER_H
 
 /** \class Sampler
- * \brief The Sampler represents an abstract method of retrieving a value.
+ * \brief The Sampler represents an abstract way of retrieving a value.
  * 
  * The abstraction between the action of "sampling" a value and actually
  * doing it allows us to modify easily how data is obtained (generation,
