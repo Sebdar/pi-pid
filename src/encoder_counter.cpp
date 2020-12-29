@@ -65,26 +65,31 @@ void EncoderCounter::threadCallback(const int pin) {
         case 0:
             if(oldA == LOW && stateA == HIGH) {
                 state = 1;
+                counterValue++;
             } else if(oldB == LOW && stateB == HIGH) {
                 state = 3;
                 counterValue--;
 #ifdef PRINT_ENCODER
-                std::cout << counterValue << std::endl;
+                std::cout << getSample() << std::endl;
 #endif
             }
             break;
         case 1:
             if(oldB == LOW && stateB == HIGH) {
                 state = 2;
+                counterValue++;
             } else if(oldA == HIGH && stateA == LOW) {
                 state = 0;
+                counterValue--;
             }
             break;
         case 2:
             if(oldA == HIGH && stateA == LOW) {
                 state = 3;
+                counterValue++;
             } else if(oldB == HIGH && stateB == LOW) {
                 state = 1;
+                counterValue--;
             }
             break;
         case 3:
@@ -92,10 +97,11 @@ void EncoderCounter::threadCallback(const int pin) {
                 state = 0;
                 counterValue++;
 #ifdef PRINT_ENCODER
-                std::cout << counterValue << std::endl;
+                std::cout << getSample() << std::endl;
 #endif
             } else if(oldA == LOW && stateA == HIGH) {
                 state = 2;
+                counterValue--;
             }
             break;
     }

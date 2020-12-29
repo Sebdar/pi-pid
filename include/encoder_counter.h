@@ -25,7 +25,7 @@ public:
     // Overridden methods
     virtual int init() override;
     virtual int startAcq() override;
-    virtual double getSample() override {return counterValue;}
+    virtual double getSample() override {return (double) counterValue / 4.;}
     virtual int close() override {return 0;}
 
     // Encoder specific functions
@@ -62,7 +62,7 @@ private:
     const int pinA, pinB;
     char state = 0;
     int stateA, stateB;
-    std::atomic<int> counterValue;
+    std::atomic<int32_t> counterValue;
 };
 
 #endif
