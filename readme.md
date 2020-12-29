@@ -4,8 +4,7 @@
 ## Abstract
 
 The PiPid project is a C++ framework / GUI app to control physical processes. As this is a
-personnal project, it is more focused for a specific usage (video coming as soon as it is
-working ;) ).
+personnal project, it is more focused for a specific usage, a propeller attached to a rotating arm, see [here](https://youtu.be/z_rbFFGTliI) for an example video.
 
 
 ## Requirements & Installation
