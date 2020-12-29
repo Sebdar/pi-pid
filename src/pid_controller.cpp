@@ -8,6 +8,7 @@
 
 #include <functional>
 #include <iostream>
+#include <cmath>
 
 // Local includes
 
@@ -51,7 +52,9 @@ int PidController::startControlLoop() {
 void PidController::controlLoop() {
     // Here comes the fun : the actual control loop of the PID
     double sample, last_y, y, out;
-    double integrator;
+    double integrator = 0;
+
+    double alpha = 0.3, d = 0, last_d = 0; // Decay for derivative low-pass
 
     last_y = sampler->getSample();
 
@@ -61,17 +64,36 @@ void PidController::controlLoop() {
         y = setPoint - sample; // Difference between set point and value
 
         // Integrator update
-        integrator += y / (delay.count() / 1e6);
 
-        out =   y * settings.p;
-        out += (y - last_y) / (delay.count() / 1e6) * settings.d;
-        out +=  integrator * settings.i;
-        // TODO : Derivative and Integral action
+        /// Proportionnal action
+        out =  y * settings.p;
 
+        /// Derivative action
+        d = (y - last_y) / ( ((double) delay.count()) / 1e6);
+        double cum_d = (alpha * d  + (1 - alpha) * last_d);
+        out += cum_d * settings.d;
+        
+        /// Integral action
+        if((integrator < 4. && integrator > -1.) || integrator * y <= 0) {
+            // Add to the integrator if it hasn't exceeded a certain value or 
+            // it could diminish (if integrator and sample don't have the same
+            // sign)
+            integrator += y * ( (double) delay.count() / 1e6);
+        }
+        out += integrator * settings.i;
+
+        // Output order
         actuator->setOutput(out);
-        std::this_thread::sleep_for(delay);
         std::cout << "Sample : " << sample
-                  << "\nOut : " << out << "\n\n";
+                  << "\nOut : " << out
+                  << " p : " << y*settings.p << "  i : " << integrator
+                  << " d : " << cum_d << "\n\n";
+
+        // Loop wait
+        std::this_thread::sleep_for(delay);
+                
+        last_d = cum_d;
+        last_y = y;
     }
 }
 

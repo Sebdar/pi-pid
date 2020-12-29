@@ -20,11 +20,11 @@ int main() {
     EncoderCounter input(17, 27);
     MotorDriver pwm(18);
 
-    PidController pid(1e-2, 0, 0.5e-3);
+    PidController pid(5e-2, 4e-1, 2e-2);
 
     pid.setInput(&input);
     pid.setActuator(&pwm);
-
+    
     pid.init();
     pid.startAcq();
 
