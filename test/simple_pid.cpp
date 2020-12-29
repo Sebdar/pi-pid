@@ -28,6 +28,8 @@ int main() {
     // Setting up the controller
     pid.setInput(&input);
     pid.setActuator(&pwm);
+    pid.setDerivativeDecay(0.3);
+    pid.setIntegratorBounds(-0.3, 4.);
     
     // Getting ready for the real-time phase
     pid.init();
@@ -61,6 +63,7 @@ int main() {
     
     pid.stopControlLoop();
     
+    std::cout << "Exiting\n";
 
     return 0;
 }

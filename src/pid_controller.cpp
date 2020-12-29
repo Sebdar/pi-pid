@@ -54,7 +54,7 @@ void PidController::controlLoop() {
     double sample, last_y, y, out;
     double integrator = 0;
 
-    double alpha = 0.3, d = 0, last_d = 0; // Decay for derivative low-pass
+    double d = 0, last_d = 0; // Decay for derivative low-pass
 
     last_y = sampler->getSample();
 
@@ -70,11 +70,12 @@ void PidController::controlLoop() {
 
         /// Derivative action
         d = (y - last_y) / ( ((double) delay.count()) / 1e6);
-        double cum_d = (alpha * d  + (1 - alpha) * last_d);
+        double cum_d = (decay * d  + (1 - decay) * last_d);
         out += cum_d * settings.d;
         
         /// Integral action
-        if((integrator < 4. && integrator > -0.3) || integrator * y <= 0) {
+        if((integrator < integratorUpper && integrator > integratorLower) 
+            || integrator * y <= 0) {
             // Add to the integrator if it hasn't exceeded a certain value or 
             // it could diminish (if integrator and sample don't have the same
             // sign)
@@ -91,7 +92,8 @@ void PidController::controlLoop() {
 
         // Loop wait
         std::this_thread::sleep_for(delay);
-                
+        
+        // Prepare for next sample
         last_d = cum_d;
         last_y = y;
     }
@@ -108,4 +110,9 @@ int PidController::stopControlLoop() {
     delete loopThread;
     loopThread = nullptr;
     return 0;
+}
+
+void PidController::setIntegratorBounds(double lower, double upper) noexcept {
+    integratorLower = lower;
+    integratorUpper = upper;
 }
