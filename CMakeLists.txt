@@ -17,6 +17,7 @@ option(BUILD_TOOLS "Build tools" OFF)
 ###########################################################
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5Charts)
 
 include_directories(include)
 
@@ -25,12 +26,15 @@ set(pipid_src
     src/gui.cpp
     src/encoder_counter.cpp
     src/motor_driver.cpp
+    src/pid_controller.cpp
+    src/delegate_logger.cpp
 # AUTOMOC does not process headers automatically, add them manually
     include/gui.h
+    include/delegate_logger.h
 )
 
 add_library(pipid STATIC ${pipid_src})
-target_link_libraries(pipid Qt5::Core Qt5::Widgets wiringPi)
+target_link_libraries(pipid Qt5::Core Qt5::Widgets Qt5::Charts wiringPi)
 
 ###########################################################
 
@@ -54,11 +58,8 @@ if(UNIT_TEST)
 
     # Basic PID test w/ encoder & motor driver 
     add_executable(simple_pid
-                   test/simple_pid.cpp
-                   src/motor_driver.cpp
-                   src/encoder_counter.cpp
-                   src/pid_controller)
-    target_link_libraries(simple_pid -lpthread wiringPi)
+                   test/simple_pid.cpp)
+    target_link_libraries(simple_pid -lpthread wiringPi pipid)
 endif()
 
 if(BUILD_TOOLS)
