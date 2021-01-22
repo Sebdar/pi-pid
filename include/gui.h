@@ -23,21 +23,39 @@ class DelegateLogger;
  */
 class ControllerWidget : public QWidget {
     Q_OBJECT
+
 public:
+
     ControllerWidget(QWidget* parent = nullptr);
     virtual ~ControllerWidget() override;
 
     void setLogger(DelegateLogger* _l) {logger = _l;}
 
+    void setMaxSecondsShown(int sec) {maxDiff = sec;}
+
+    void setYRange(float min, float max);
+
 public Q_SLOTS:
     void slotSeriesUpdated(const QString name);
 
 private:
+    // QChart pointers
     QGridLayout* controllerLayout;
     QChart* chart1;
     QLineSeries* samples;
     QChartView* chartView1;
+    QValueAxis* axisX, *axisY;
+    
     DelegateLogger* logger;
+    
+    /** \brief Maximum time difference (in seconds) between the first and last
+     * points
+     */
+    int maxDiff = 5;
+
+    /** \brief Y axis limits
+     */
+    float minY = -1., maxY = 1.;
 };
 
 

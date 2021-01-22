@@ -3,7 +3,7 @@
  * 
  * \author Sebastien Darche <sebastien.darche@free.fr>
  */
-
+#include <iostream>
 // Local includes
 
 #include "delegate_logger.h"
@@ -33,11 +33,15 @@ void DelegateLogger::registerSample(const std::string& name, double value) {
     std::chrono::microseconds timestamp = 
         std::chrono::duration_cast<std::chrono::microseconds>(now - originStamp);
 
-    // insert time stamp + value as a point
+    // Insert time stamp + value as a point
     sampleMap[name].push_back(QPointF((float) timestamp.count() / (float) 1e6, 
                                       value));
-
+    for(const auto& point : sampleMap[name]) {
+        std::cout << point.x() << " - " << point.y() << '\n';
+    }
+    // Notify the GUI widget
     Q_EMIT(updatedSeries(QString::fromStdString(name)));
+    
     return;
 }
 

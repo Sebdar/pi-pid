@@ -41,7 +41,7 @@ target_link_libraries(pipid Qt5::Core Qt5::Widgets Qt5::Charts wiringPi)
 if(UNIT_TEST)
     # Gui test
     add_executable(gui_test test/gui_test.cpp)
-    target_link_libraries(gui_test pipid)
+    target_link_libraries(gui_test pipid pthread)
     
     # Incremental encoder class test
     add_executable(incremental_encoder 

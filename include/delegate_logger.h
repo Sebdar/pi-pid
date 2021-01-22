@@ -24,8 +24,10 @@
 
 #include "gui.h" 
 
+
 /** \class DelegateLogger
- * \brief The DelegateLogger class serves as an interface between the
+ *
+ * \brief The DelegateLogger class serves as an intermediary between the
  * controller & its samples and the plot or file saving device. It is also an
  * adapter between the C++ std and the Qt framework / event-driven programming
  */
