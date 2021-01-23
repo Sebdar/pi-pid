@@ -81,3 +81,4 @@ void ControllerWidget::setYRange(float min, float max) {
     maxY = max;
     axisY->setRange(min, max);
 }
+

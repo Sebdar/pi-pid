@@ -33,17 +33,21 @@ void DelegateLogger::registerSample(const std::string& name, double value) {
     std::chrono::microseconds timestamp = 
         std::chrono::duration_cast<std::chrono::microseconds>(now - originStamp);
 
+    auto& map = sampleMap[name];
+
     // Insert time stamp + value as a point
-    sampleMap[name].push_back(QPointF((float) timestamp.count() / (float) 1e6, 
+    map.push_back(QPointF((float) timestamp.count() / (float) 1e6, 
                                       value));
     
+    if(map.size() > maxSamples) {map.pop_front();}
+
     // Notify the GUI widget
     Q_EMIT(updatedSeries(QString::fromStdString(name)));
     
     return;
 }
 
-QVector<QPointF>* DelegateLogger::getPointSeries(const std::string& name) {
+std::deque<QPointF>* DelegateLogger::getPointSeries(const std::string& name) {
     try {
         auto& vec = sampleMap.at(name);
         return &vec;

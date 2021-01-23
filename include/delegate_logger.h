@@ -12,17 +12,19 @@
 #include <string>
 #include <unordered_map>
 #include <chrono>
+#include <deque>
 
 // Qt includes
 
 #include <QObject>
 #include <QString>
-#include <QVector>
 #include <QPointF>
 
 // local includes
 
 #include "gui.h" 
+
+
 
 
 /** \class DelegateLogger
@@ -38,6 +40,10 @@ public:
     DelegateLogger(ControllerWidget* _controller = nullptr);
     ~DelegateLogger() {}
 
+    /** \brief Max nbr of stored points. This should evolve to a variable later
+     */
+    static constexpr unsigned int maxSamples = 10;
+    
     // ---- Controller (std) interface ---- //
 
     /** \fn registerSample
@@ -58,7 +64,7 @@ public:
      * \brief Returns a pointer to a point series. Returns nullptr
      * if it does not exist.
      */
-    QVector<QPointF>* getPointSeries(const std::string& name);
+    std::deque<QPointF>* getPointSeries(const std::string& name);
 
 Q_SIGNALS:
     void updatedSeries(const QString seriesName);
@@ -66,7 +72,7 @@ Q_SIGNALS:
 private:
     std::chrono::time_point<std::chrono::steady_clock> originStamp;
     ControllerWidget* widget;
-    std::unordered_map<std::string, QVector<QPointF>> sampleMap;
+    std::unordered_map<std::string, std::deque<QPointF>> sampleMap;
 };
 
 #endif

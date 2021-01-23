@@ -28,7 +28,8 @@ public:
      */
     Sine() = default;
     
-    Sine(double frequency, double phase);
+    Sine(double frequency, double phase)
+        : f(frequency), p(phase) {}
 
     virtual ~Sine() = default;
 

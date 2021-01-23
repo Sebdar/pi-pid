@@ -17,15 +17,14 @@
 
 #include "gui.h"
 #include "delegate_logger.h"
-
+#include "samplers/sine.h"
 
 using namespace std::chrono_literals;
 
 void threadLoop(DelegateLogger& logger) {
-    float val = .0;
+    Sine generator(1, 0);
     for(;;) {
-        logger.registerSample("test", std::sin(val));
-        val += 0.05;
+        logger.registerSample("test", generator.getSample());
         std::this_thread::sleep_for(50ms);
     }
 }
@@ -40,9 +39,9 @@ int main(int argc, char** argv) {
     DelegateLogger logger(static_cast<ControllerWidget*>(mainWindow.centralWidget()));
 
     logger.registerOrigin();
-    
+
     auto thread = new std::thread([&] () {threadLoop(logger);}); 
-    
+
     mainWindow.show();
     return app.exec();
 }
