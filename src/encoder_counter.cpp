@@ -11,7 +11,7 @@
 // Local includes
 
 #include <wiringPi.h>
-#include "encoder_counter.h"
+#include "samplers/encoder_counter.h"
 
 // Debug
 #ifdef PRINT_ENCODER

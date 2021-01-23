@@ -11,7 +11,7 @@
 // Local includes
 
 #include <wiringPi.h>
-#include "motor_driver.h"
+#include "outputs/motor_driver.h"
 
 
 // -------------------------- Static Functions ----------------------------- //

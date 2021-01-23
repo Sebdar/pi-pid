@@ -10,7 +10,7 @@
 
 // Local includes
 
-#include <encoder_counter.h>
+#include "samplers/encoder_counter.h"
 
 
 int main() {

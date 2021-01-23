@@ -10,9 +10,11 @@
 
 // Local includes
 
-#include "motor_driver.h"
-#include "constant_value.h"
-#include "encoder_counter.h"
+#include "samplers/constant_value.h"
+#include "samplers/encoder_counter.h"
+
+#include "outputs/motor_driver.h"
+
 #include "pid_controller.h"
 
 

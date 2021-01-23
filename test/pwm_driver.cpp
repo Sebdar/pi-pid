@@ -9,10 +9,13 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+
 using namespace std::literals::chrono_literals;
 
 // Local includes
-#include "motor_driver.h"
+
+#include "outputs/motor_driver.h"
+
 
 int main() {
     MotorDriver pwm(18);
