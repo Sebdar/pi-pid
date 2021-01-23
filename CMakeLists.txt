@@ -11,8 +11,8 @@ set(CMAKE_AUTOUIC ON)
 
 ###########################################################
 
-option(UNIT_TEST "Build unit tests" OFF)
-option(BUILD_TOOLS "Build tools" OFF)
+option(UNIT_TEST     "Build unit tests"     OFF)
+option(BUILD_TOOLS   "Build tools"          OFF)
 
 ###########################################################
 
@@ -28,7 +28,8 @@ set(pipid_src
     src/motor_driver.cpp
     src/pid_controller.cpp
     src/delegate_logger.cpp
-# AUTOMOC does not process headers automatically, add them manually
+    src/sine.cpp
+    # AUTOMOC does not process headers automatically, add them manually
     include/gui.h
     include/delegate_logger.h
 )
