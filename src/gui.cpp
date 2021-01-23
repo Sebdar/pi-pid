@@ -4,6 +4,7 @@
  * \author Sebastien Darche <sebastien.darche@free.fr>
  */
 
+
 // Std includes
 
 #include <iostream>
@@ -59,7 +60,6 @@ ControllerWidget::~ControllerWidget() {
 
 void ControllerWidget::slotSeriesUpdated(const QString name) {
     if(name == "test") {
-        std::cout << "Received test sample\n";
         
         auto& pt = logger->getPointSeries(name.toStdString())->back();
         samples->append(pt);
