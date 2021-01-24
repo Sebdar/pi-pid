@@ -61,7 +61,13 @@ if(UNIT_TEST)
     add_executable(simple_pid
                    test/simple_pid.cpp)
     target_link_libraries(simple_pid -lpthread wiringPi pipid)
+
+    # First order system step response simu w/ gui
+    add_executable(first_order_simu test/first_order_simu.cpp)
+    target_link_libraries(first_order_simu pipid pthread)
+
 endif()
 
 if(BUILD_TOOLS)
 endif()
+
